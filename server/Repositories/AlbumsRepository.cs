@@ -60,7 +60,8 @@ public class AlbumsRepository(IDbConnection db)
     JOIN accounts ON accounts.id = albums.creator_id
     WHERE albums.id = @albumId
     ;";
-    // types for explicit map is, first table type, second table type, return type
+    // types for explicit map is, <first table type, second table type, return type>
+    // pay attention to the order your sql selects!
     // ......................1.......2.........3
     Album album = _db.Query<Album, Account, Album>(sql, PopulateCreator, new { albumId }).SingleOrDefault();
     return album;

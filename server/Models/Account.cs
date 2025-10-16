@@ -17,7 +17,8 @@ public class Account : Profile
   public bool PicksNose { get; set; }
 }
 
-public class WatcherProfile : Profile
-{
-  public int WatcherId { get; set; }
-}
+// NOTE for later use
+// public class WatcherProfile : Profile
+// {
+//   public int WatcherId { get; set; }
+// }

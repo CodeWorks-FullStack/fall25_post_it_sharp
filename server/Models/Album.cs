@@ -1,5 +1,7 @@
 namespace post_it_sharp.Models;
 
+
+// Because Album "implements" IRepoItem, Album *must* have the members IRepoItem enforces (Id, CreatedAt, UpdatedAt)
 public class Album : IRepoItem<int>
 {
   public int Id { get; set; }
