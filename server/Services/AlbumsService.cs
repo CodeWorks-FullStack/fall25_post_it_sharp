@@ -23,4 +23,16 @@ public class AlbumsService(AlbumsRepository repo)
     return album;
   }
 
+  public Album ArchiveAlbum(int albumId, string userId)
+  {
+
+    Album albumToArchive = GetOneAlbumById(albumId);
+    if (userId != albumToArchive.CreatorId) throw new Exception("I know what you are. 🫵😠");
+
+    albumToArchive.Archived = !albumToArchive.Archived;
+
+    Album album = _repo.ArchiveAlbum(albumToArchive);
+    return album;
+  }
+
 }

@@ -52,4 +52,20 @@ public class AlbumsController(Auth0Provider auth, AlbumsService albumsService) :
       return BadRequest(e.Message);
     }
   }
+
+  [HttpDelete("{albumId}")]
+  [Authorize]
+  async public Task<ActionResult<Album>> ArchiveAlbum(int albumId)
+  {
+    try
+    {
+      Account user = await _auth.GetUserInfoAsync<Account>(HttpContext);
+      Album archivedAlbum = _albumsService.ArchiveAlbum(albumId, user.Id);
+      return Ok(archivedAlbum);
+    }
+    catch (Exception e)
+    {
+      return BadRequest(e.Message);
+    }
+  }
 }

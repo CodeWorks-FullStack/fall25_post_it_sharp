@@ -7,7 +7,7 @@ CREATE TABLE IF NOT EXISTS accounts(
   picture VARCHAR(255) COMMENT 'User Picture'
 ) default charset utf8mb4 COMMENT '';
 
-
+drop TABLE albums;
 CREATE TABLE albums(
   id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
   created_at DATETIME DEFAULT CURRENT_TIMESTAMP COMMENT 'Time Created',
@@ -16,9 +16,12 @@ CREATE TABLE albums(
   title VARCHAR(500) NOT NULL,
   cover_img VARCHAR(1000) NOT NULL DEFAULT "https://images.unsplash.com/photo-1516207391731-7ea07f1e29eb?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=1074",
   category ENUM ("misc", "aesthetics", "games", "animals", "food", "vibes", "retro") NOT NULL DEFAULT "misc",
+  archived BOOLEAN NOT NULL DEFAULT false,
   creator_id VARCHAR(255) NOT NULL,
   FOREIGN KEY (creator_id) REFERENCES accounts(id) ON DELETE CASCADE
 );
+
+
 
 INSERT INTO albums
 (title, cover_img, category, creator_id)

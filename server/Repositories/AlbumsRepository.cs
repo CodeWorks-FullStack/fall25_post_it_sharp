@@ -79,4 +79,24 @@ public class AlbumsRepository(IDbConnection db)
   //   album.Creator = creator;
   //   return album;
   // }
+
+
+  public Album ArchiveAlbum(Album archiveData)
+  {
+    string sql = @"
+    UPDATE albums SET
+    archived = @Archived
+    WHERE id = @Id LIMIT 1;
+
+    SELECT
+       albums.*,
+       accounts.*
+    FROM albums
+    JOIN accounts ON accounts.id = albums.creator_id
+    WHERE albums.id = @Id
+    ;";
+
+    Album album = _db.Query<Album, Account, Album>(sql, PopulateCreator, archiveData).SingleOrDefault();
+    return album;
+  }
 }
