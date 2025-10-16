@@ -37,3 +37,36 @@ VALUES
       FROM albums
       JOIN accounts ON accounts.id = albums.creator_id
       WHERE albums.id = 10;
+
+
+
+-- Watchers
+
+CREATE TABLE watchers(
+  id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+  account_id VARCHAR(255) NOT NULL,
+  album_id INT NOT NULL,
+
+  FOREIGN KEY (account_id) REFERENCES accounts(id) ON DELETE CASCADE,
+  FOREIGN KEY (album_id) REFERENCES albums(id) ON DELETE CASCADE
+);
+
+INSERT INTO watchers
+(album_id, account_id)
+VALUES
+(1,'65f87bc1e02f1ee243874743'),
+(2,'65f87bc1e02f1ee243874743'),
+(3,'670ff93326693293c631476f');
+
+SELECT
+  albums.*
+FROM watchers
+JOIN albums ON albums.id = watchers.album_id
+WHERE watchers.account_id = '670ff93326693293c631476f';
+
+SELECT
+  watchers.id AS watcher_id,
+  accounts.*
+FROM watchers
+JOIN accounts ON accounts.id = watchers.account_id
+WHERE watchers.album_id = 2;

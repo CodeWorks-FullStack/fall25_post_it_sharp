@@ -16,3 +16,8 @@ public class Account : Profile
   public string HomeAddress { get; set; }
   public bool PicksNose { get; set; }
 }
+
+public class WatcherProfile : Profile
+{
+  public int WatcherId { get; set; }
+}
