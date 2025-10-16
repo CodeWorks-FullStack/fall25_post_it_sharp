@@ -14,3 +14,4 @@ global using CodeWorks.Utils;
 global using post_it_sharp.Repositories;
 global using post_it_sharp.Services;
 global using post_it_sharp.Models;
+global using post_it_sharp.Interfaces;
