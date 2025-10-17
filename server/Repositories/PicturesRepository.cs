@@ -1,5 +1,7 @@
 
 
+
+
 namespace post_it_sharp.Repositories;
 
 public class PicturesRepository
@@ -34,6 +36,27 @@ public class PicturesRepository
       },
       pictureData).SingleOrDefault();
     return createdPicture;
+  }
+
+  internal void DeletePicture(int pictureId)
+  {
+    string sql = "DELETE FROM pictures WHERE id = @pictureId LIMIT 1;";
+
+    int rowsAffected = _db.Execute(sql, new { pictureId });
+
+    if (rowsAffected != 1)
+    {
+      throw new Exception(rowsAffected + " rows have been deleted, and that is a problem!");
+    }
+  }
+
+  internal Picture GetPictureById(int pictureId)
+  {
+    string sql = "SELECT * FROM pictures WHERE id = @pictureId;";
+    //                                            { pictureId: 7 }
+    Picture picture = _db.Query<Picture>(sql, new { pictureId }).SingleOrDefault();
+
+    return picture;
   }
 
   internal List<Picture> GetPicturesByAlbumId(int albumId)
