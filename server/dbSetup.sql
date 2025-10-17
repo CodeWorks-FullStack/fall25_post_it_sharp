@@ -105,11 +105,6 @@ WHERE
   watchers.account_id = '670ff93326693293c631476f';
 
 SELECT
-  *
-FROM
-  watchers;
-
-SELECT
   watchers.id AS watcher_id,
   accounts.*
 FROM
@@ -119,6 +114,10 @@ WHERE
   watchers.album_id = 3;
 
 SELECT
-  name AS super_cool_name
+  watchers.*,
+  accounts.*
 FROM
-  accounts;
+  watchers
+  JOIN accounts ON accounts.id = watchers.account_id
+WHERE
+  watchers.album_id = 3;

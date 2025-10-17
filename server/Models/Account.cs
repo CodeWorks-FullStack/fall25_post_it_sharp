@@ -6,7 +6,7 @@ public class Profile : IRepoItem<string>
 {
   public string Id { get; set; }
   public string Name { get; set; }
-  public string Picture { get; set; }
+  [Url] public string Picture { get; set; }
   public DateTime CreatedAt { get; set; }
   public DateTime UpdatedAt { get; set; }
 }
@@ -18,9 +18,3 @@ public class Account : Profile
   public string HomeAddress { get; set; }
   public bool PicksNose { get; set; }
 }
-
-// NOTE for later use
-// public class WatcherProfile : Profile
-// {
-//   public int WatcherId { get; set; }
-// }

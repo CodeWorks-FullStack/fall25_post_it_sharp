@@ -2,11 +2,12 @@ namespace post_it_sharp.Controllers;
 
 [ApiController]
 [Route("api/albums")]
-public class AlbumsController(Auth0Provider auth, AlbumsService albumsService, PicturesService picturesService) : ControllerBase
+public class AlbumsController(Auth0Provider auth, AlbumsService albumsService, PicturesService picturesService, WatchersService watchersService) : ControllerBase
 {
   private readonly Auth0Provider _auth = auth;
   private readonly AlbumsService _albumsService = albumsService;
   private readonly PicturesService _picturesService = picturesService;
+  private readonly WatchersService _watchersService = watchersService;
 
 
   [HttpPost]
@@ -77,6 +78,20 @@ public class AlbumsController(Auth0Provider auth, AlbumsService albumsService, P
     {
       List<Picture> pictures = _picturesService.GetPicturesByAlbumId(albumId);
       return Ok(pictures);
+    }
+    catch (Exception exception)
+    {
+      return BadRequest(exception.Message);
+    }
+  }
+
+  [HttpGet("{albumId}/watchers")]
+  public ActionResult<List<WatcherProfile>> GetWatchersByAlbumId(int albumId)
+  {
+    try
+    {
+      List<WatcherProfile> watchers = _watchersService.GetWatchersByAlbumId(albumId);
+      return Ok(watchers);
     }
     catch (Exception exception)
     {

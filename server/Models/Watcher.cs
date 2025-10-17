@@ -7,3 +7,14 @@ public class Watcher
   public int AlbumId { get; set; }
   public string AccountId { get; set; }
 }
+
+public class WatcherProfile : Profile
+{
+  // public string Id { get; set; }
+  // public string Name { get; set; }
+  // public string Picture { get; set; }
+  // public DateTime CreatedAt { get; set; }
+  // public DateTime UpdatedAt { get; set; }
+  public int WatcherId { get; set; }
+  public int AlbumId { get; set; }
+}
