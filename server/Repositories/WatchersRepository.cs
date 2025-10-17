@@ -1,5 +1,6 @@
 
 
+
 namespace post_it_sharp.Repositories;
 
 public class WatchersRepository
@@ -25,6 +26,31 @@ public class WatchersRepository
     return watcher;
   }
 
+  internal List<WatcherAlbum> GetWatchersByAccountId(string accountId)
+  {
+    string sql = @"
+    SELECT
+      albums.*,
+      watchers.account_id AS account_id,
+      watchers.id AS watcher_id,
+      accounts.*
+    FROM watchers
+    INNER JOIN albums ON watchers.album_id = albums.id
+    INNER JOIN accounts ON accounts.id = albums.creator_id
+    WHERE watchers.account_id = @accountId;";
+
+    List<WatcherAlbum> watchers = _db.Query(
+      sql,
+      (WatcherAlbum album, Profile account) =>
+      {
+        album.Creator = account;
+        return album;
+      },
+      new { accountId }).ToList();
+
+    return watchers;
+  }
+
   internal List<WatcherProfile> GetWatchersByAlbumId(int albumId)
   {
     // string sql = @"
@@ -32,7 +58,7 @@ public class WatchersRepository
     // watchers.*,
     // accounts.*
     // FROM watchers
-    // JOIN accounts ON accounts.id = watchers.account_id
+    // INNER JOIN accounts ON accounts.id = watchers.account_id
     // WHERE watchers.album_id = @albumId;";
 
     // List<WatcherProfile> watchers = _db.Query(
@@ -47,11 +73,11 @@ public class WatchersRepository
 
     string sql = @"
     SELECT
-    accounts.*,
-    watchers.album_id AS album_id,
-    watchers.id AS watcher_id
+      accounts.*,
+      watchers.album_id AS album_id,
+      watchers.id AS watcher_id
     FROM watchers
-    JOIN accounts ON accounts.id = watchers.account_id
+    INNER JOIN accounts ON accounts.id = watchers.account_id
     WHERE watchers.album_id = @albumId;";
 
     List<WatcherProfile> watchers = _db.Query<WatcherProfile>(sql, new { albumId }).ToList();

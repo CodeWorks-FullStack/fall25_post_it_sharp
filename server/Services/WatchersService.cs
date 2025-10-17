@@ -1,5 +1,6 @@
 
 
+
 namespace post_it_sharp.Services;
 
 public class WatchersService
@@ -15,6 +16,12 @@ public class WatchersService
   {
     Watcher watcher = _repository.CreateWatcher(watcherData);
     return watcher;
+  }
+
+  internal List<WatcherAlbum> GetWatchersByAccountId(string accountId)
+  {
+    List<WatcherAlbum> watchers = _repository.GetWatchersByAccountId(accountId);
+    return watchers;
   }
 
   internal List<WatcherProfile> GetWatchersByAlbumId(int albumId)

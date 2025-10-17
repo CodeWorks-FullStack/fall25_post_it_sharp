@@ -18,3 +18,9 @@ public class WatcherProfile : Profile
   public int WatcherId { get; set; }
   public int AlbumId { get; set; }
 }
+
+public class WatcherAlbum : Album
+{
+  public string AccountId { get; set; }
+  public int WatcherId { get; set; }
+}

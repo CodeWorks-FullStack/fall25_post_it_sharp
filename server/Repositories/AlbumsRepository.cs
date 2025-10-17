@@ -44,7 +44,7 @@ public class AlbumsRepository(IDbConnection db)
        accounts.*
     FROM albums
     JOIN accounts ON accounts.id = albums.creator_id
-    ;";
+    ORDER BY albums.id;";
     // NOTE the query required type parameters if we are using our Named Map Function
     List<Album> albums = _db.Query<Album, Account, Album>(sql, PopulateCreator).ToList();
     return albums;
