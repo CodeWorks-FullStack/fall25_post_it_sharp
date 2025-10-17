@@ -13,5 +13,21 @@ public class WatchersController : ControllerBase
     _auth = auth;
   }
 
+  [HttpPost]
+  [Authorize]
+  public async Task<ActionResult<Watcher>> CreateWatcher([FromBody] Watcher watcherData)
+  {
+    try
+    {
+      Account userInfo = await _auth.GetUserInfoAsync<Account>(HttpContext);
+      watcherData.AccountId = userInfo.Id;
+      Watcher watcher = _watchersService.CreateWatcher(watcherData);
+      return Ok(watcher);
+    }
+    catch (Exception exception)
+    {
+      return BadRequest(exception.Message);
+    }
+  }
 
 }
