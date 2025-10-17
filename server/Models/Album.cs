@@ -14,4 +14,5 @@ public class Album : IRepoItem<int>
   public bool Archived { get; set; } = false; // create default value in C# model
 
   public Profile Creator { get; set; }
+  public int WatcherCount { get; set; }
 }

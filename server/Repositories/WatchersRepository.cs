@@ -1,6 +1,8 @@
 
 
 
+
+
 namespace post_it_sharp.Repositories;
 
 public class WatchersRepository
@@ -23,6 +25,25 @@ public class WatchersRepository
 
     Watcher watcher = _db.Query<Watcher>(sql, watcherData).SingleOrDefault();
 
+    return watcher;
+  }
+
+  internal void DeleteWatcher(int watcherId)
+  {
+    string sql = "DELETE FROM watchers WHERE id = @watcherId LIMIT 1;";
+
+    int rowsAffected = _db.Execute(sql, new { watcherId });
+
+    if (rowsAffected != 1)
+    {
+      throw new Exception(rowsAffected + " rows are gone call the police");
+    }
+  }
+
+  internal Watcher GetWatcherById(int watcherId)
+  {
+    string sql = "SELECT * FROM watchers WHERE id = @watcherId;";
+    Watcher watcher = _db.Query<Watcher>(sql, new { watcherId }).SingleOrDefault();
     return watcher;
   }
 

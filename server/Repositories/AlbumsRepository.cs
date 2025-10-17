@@ -40,11 +40,15 @@ public class AlbumsRepository(IDbConnection db)
   {
     string sql = @"
     SELECT
-       albums.*,
-       accounts.*
+      albums.*,
+      COUNT(watchers.id) AS watcher_count,
+      accounts.*
     FROM albums
-    JOIN accounts ON accounts.id = albums.creator_id
+    LEFT OUTER JOIN watchers ON watchers.album_id = albums.id
+    INNER JOIN accounts ON accounts.id = albums.creator_id
+    GROUP BY albums.id
     ORDER BY albums.id;";
+
     // NOTE the query required type parameters if we are using our Named Map Function
     List<Album> albums = _db.Query<Album, Account, Album>(sql, PopulateCreator).ToList();
     return albums;

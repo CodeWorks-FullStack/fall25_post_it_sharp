@@ -91,8 +91,6 @@ WHERE
 INSERT INTO
   watchers (album_id, account_id)
 VALUES
-  (1, '65f87bc1e02f1ee243874743'),
-  (2, '65f87bc1e02f1ee243874743'),
   (3, '670ff93326693293c631476f');
 
 SELECT
@@ -143,3 +141,38 @@ FROM
   INNER JOIN accounts ON accounts.id = albums.creator_id
 WHERE
   watchers.account_id = "670ff93326693293c631476f";
+
+SELECT
+  COUNT(albums.id)
+FROM
+  albums;
+
+SELECT
+  albums.*,
+  COUNT(watchers.id) AS watcher_count
+FROM
+  albums
+  LEFT OUTER JOIN watchers ON watchers.album_id = albums.id
+GROUP BY
+  albums.id;
+
+SELECT
+  category,
+  COUNT(albums.id) AS category_count
+FROM
+  albums
+GROUP BY
+  category;
+
+SELECT
+  albums.*,
+  COUNT(watchers.id) AS watcher_count,
+  accounts.*
+FROM
+  albums
+  LEFT OUTER JOIN watchers ON watchers.album_id = albums.id
+  INNER JOIN accounts ON accounts.id = albums.creator_id
+GROUP BY
+  albums.id
+ORDER BY
+  albums.id;

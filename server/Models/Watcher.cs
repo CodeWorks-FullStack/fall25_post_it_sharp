@@ -8,6 +8,7 @@ public class Watcher
   public string AccountId { get; set; }
 }
 
+// REVIEW DTO (data transfer objects)
 public class WatcherProfile : Profile
 {
   // public string Id { get; set; }

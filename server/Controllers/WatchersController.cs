@@ -30,4 +30,20 @@ public class WatchersController : ControllerBase
     }
   }
 
+  [HttpDelete("{watcherId}")]
+  [Authorize]
+  public async Task<ActionResult<string>> DeleteWatcher(int watcherId)
+  {
+    try
+    {
+      Account userInfo = await _auth.GetUserInfoAsync<Account>(HttpContext);
+      _watchersService.DeleteWatcher(watcherId, userInfo.Id);
+      return Ok("Deleted Watcher!");
+    }
+    catch (Exception exception)
+    {
+      return BadRequest(exception.Message);
+    }
+  }
+
 }
