@@ -1,0 +1,17 @@
+
+namespace post_it_sharp.Services;
+
+public class PicturesService
+{
+  private readonly PicturesRepository _repository;
+
+  public PicturesService(PicturesRepository repository)
+  {
+    _repository = repository;
+  }
+
+  internal Picture CreatePicture()
+  {
+    throw new NotImplementedException();
+  }
+}

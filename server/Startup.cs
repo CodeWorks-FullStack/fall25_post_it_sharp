@@ -38,6 +38,8 @@ public class Startup
     services.AddScoped<AccountService>();
     services.AddScoped<AlbumsRepository>();
     services.AddScoped<AlbumsService>();
+    services.AddScoped<PicturesRepository>();
+    services.AddScoped<PicturesService>();
   }
 
   private void ConfigureCors(IServiceCollection services)
