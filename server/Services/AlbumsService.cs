@@ -20,6 +20,7 @@ public class AlbumsService(AlbumsRepository repo)
   public Album GetOneAlbumById(int albumId)
   {
     Album album = _repo.GetOneAlbumById(albumId);
+    if (album == null) throw new Exception("No album found with the id: " + albumId);
     return album;
   }
 
