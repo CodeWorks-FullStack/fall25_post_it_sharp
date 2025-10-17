@@ -11,4 +11,5 @@ public class Picture : IRepoItem<int>
   public string CreatorId { get; set; }
   public int AlbumId { get; set; }
   [Url] public string ImgUrl { get; set; }
+  public Profile Creator { get; set; }
 }

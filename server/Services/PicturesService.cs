@@ -10,8 +10,9 @@ public class PicturesService
     _repository = repository;
   }
 
-  internal Picture CreatePicture()
+  internal Picture CreatePicture(Picture pictureData)
   {
-    throw new NotImplementedException();
+    Picture picture = _repository.CreatePicture(pictureData);
+    return picture;
   }
 }

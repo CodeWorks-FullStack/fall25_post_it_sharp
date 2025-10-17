@@ -16,11 +16,13 @@ public class PicturesController : ControllerBase
 
   [HttpPost]
   [Authorize]
-  public async Task<ActionResult<Picture>> CreatePicture()
+  public async Task<ActionResult<Picture>> CreatePicture([FromBody] Picture pictureData)
   {
     try
     {
-      Picture picture = _picturesService.CreatePicture();
+      Account userInfo = await _auth.GetUserInfoAsync<Account>(HttpContext);
+      pictureData.CreatorId = userInfo.Id;
+      Picture picture = _picturesService.CreatePicture(pictureData);
       return Ok(picture);
     }
     catch (Exception exception)
