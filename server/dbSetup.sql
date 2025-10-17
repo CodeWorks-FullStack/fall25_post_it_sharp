@@ -96,12 +96,18 @@ VALUES
   (3, '670ff93326693293c631476f');
 
 SELECT
-  albums.*
+  albums.*,
+  watchers.id AS watcher_id
 FROM
   watchers
   JOIN albums ON albums.id = watchers.album_id
 WHERE
   watchers.account_id = '670ff93326693293c631476f';
+
+SELECT
+  *
+FROM
+  watchers;
 
 SELECT
   watchers.id AS watcher_id,
@@ -110,4 +116,9 @@ FROM
   watchers
   JOIN accounts ON accounts.id = watchers.account_id
 WHERE
-  watchers.album_id = 2;
+  watchers.album_id = 3;
+
+SELECT
+  name AS super_cool_name
+FROM
+  accounts;

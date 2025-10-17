@@ -1,3 +1,5 @@
+using System.ComponentModel.DataAnnotations;
+
 namespace post_it_sharp.Models;
 
 public class Profile : IRepoItem<string>
@@ -12,7 +14,7 @@ public class Profile : IRepoItem<string>
 public class Account : Profile
 {
   public string Email { get; set; }
-  public string CreditCardNumber { get; set; }
+  [CreditCard] public string CreditCardNumber { get; set; }
   public string HomeAddress { get; set; }
   public bool PicksNose { get; set; }
 }
