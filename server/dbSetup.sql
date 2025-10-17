@@ -121,3 +121,13 @@ FROM
   JOIN accounts ON accounts.id = watchers.account_id
 WHERE
   watchers.album_id = 3;
+
+SELECT
+  accounts.*,
+  watchers.album_id AS album_id,
+  watchers.id AS watcher_id
+FROM
+  watchers
+  JOIN accounts ON accounts.id = watchers.account_id
+WHERE
+  watchers.album_id = 3;

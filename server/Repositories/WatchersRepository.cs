@@ -27,23 +27,34 @@ public class WatchersRepository
 
   internal List<WatcherProfile> GetWatchersByAlbumId(int albumId)
   {
+    // string sql = @"
+    // SELECT
+    // watchers.*,
+    // accounts.*
+    // FROM watchers
+    // JOIN accounts ON accounts.id = watchers.account_id
+    // WHERE watchers.album_id = @albumId;";
+
+    // List<WatcherProfile> watchers = _db.Query(
+    //   sql,
+    //   (Watcher watcher, WatcherProfile account) =>
+    //   {
+    //     account.AlbumId = watcher.AlbumId;
+    //     account.WatcherId = watcher.Id;
+    //     return account;
+    //   },
+    //   new { albumId }).ToList();
+
     string sql = @"
     SELECT
-    watchers.*,
-    accounts.*
+    accounts.*,
+    watchers.album_id AS album_id,
+    watchers.id AS watcher_id
     FROM watchers
     JOIN accounts ON accounts.id = watchers.account_id
     WHERE watchers.album_id = @albumId;";
 
-    List<WatcherProfile> watchers = _db.Query(
-      sql,
-      (Watcher watcher, WatcherProfile account) =>
-      {
-        account.AlbumId = watcher.AlbumId;
-        account.WatcherId = watcher.Id;
-        return account;
-      },
-      new { albumId }).ToList();
+    List<WatcherProfile> watchers = _db.Query<WatcherProfile>(sql, new { albumId }).ToList();
 
     return watchers;
   }
