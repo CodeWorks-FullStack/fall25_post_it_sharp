@@ -1,4 +1,5 @@
 
+
 namespace post_it_sharp.Services;
 
 public class PicturesService
@@ -24,5 +25,11 @@ public class PicturesService
 
     Picture picture = _repository.CreatePicture(pictureData);
     return picture;
+  }
+
+  internal List<Picture> GetPicturesByAlbumId(int albumId)
+  {
+    List<Picture> pictures = _repository.GetPicturesByAlbumId(albumId);
+    return pictures;
   }
 }
